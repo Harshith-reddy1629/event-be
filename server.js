@@ -21,7 +21,9 @@ const initializeServer = () => {
   }
 };
 initializeServer();
-app.get("/", (req, res) => {});
+app.get("/", async (req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "notFound.html"));
+});
 
 app.use("/events", Router);
 app.use("/user", userRouter);
