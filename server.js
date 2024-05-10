@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const mongoConnection = require("./mongoConnection");
 const Router = require("./Routes/eventRoutes");
@@ -9,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8004;
 
 app.use(express.json());
+app.use(cors());
 mongoConnection();
 const initializeServer = () => {
   try {
