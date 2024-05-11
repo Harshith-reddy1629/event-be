@@ -96,7 +96,8 @@ const createUserAndSendMail = async (req, res) => {
     const mailStatus = await sendMail(
       email,
       "Welcome!",
-      `Please Verify Your Email to Use Event Services, Click here ${addUser.verificationId}`
+      `Hi ${addUser.name}
+      Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${addUser.verificationId}`
     );
     console.log(mailStatus);
     if (mailStatus) {
@@ -180,7 +181,8 @@ const resendVerificationMail = async (req, res) => {
           const mailStatus = await sendMail(
             email,
             "Resend verification",
-            `Please Verify Your Email to Use Event Services, Click here ${findEmail.verificationId}`
+            `Hi ${findEmail.name}, 
+             Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${findEmail.verificationId}`
           );
           if (mailStatus) {
             res.status(200).send({ message: "Mail sent" });
