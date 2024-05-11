@@ -95,8 +95,8 @@ const createUserAndSendMail = async (req, res) => {
 
     const mailStatus = await sendMail(
       email,
-      "welcome!",
-      `welcome,  ${addUser.verificationId}`
+      "Welcome!",
+      `Please Verify Your Email to Use Event Services, Click here ${addUser.verificationId}`
     );
     console.log(mailStatus);
     if (mailStatus) {
@@ -179,8 +179,8 @@ const resendVerificationMail = async (req, res) => {
         if (!findEmail.isVerified) {
           const mailStatus = await sendMail(
             email,
-            "resend verification",
-            findEmail.verificationId
+            "Resend verification",
+            `Please Verify Your Email to Use Event Services, Click here ${findEmail.verificationId}`
           );
           if (mailStatus) {
             res.status(200).send({ message: "Mail sent" });
