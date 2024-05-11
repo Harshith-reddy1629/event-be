@@ -7,6 +7,7 @@ const {
   createUserAndSendMail,
   VerifyMail,
   loginUser,
+  resendVerificationMail,
 } = require("../middlewares/user-middlewares");
 
 Router.post(
@@ -20,5 +21,7 @@ Router.post(
 Router.get("/verify/:id", VerifyMail);
 
 Router.post("/login", loginUser);
+
+Router.post("/resend-mail", resendVerificationMail);
 
 module.exports = Router;

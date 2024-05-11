@@ -102,7 +102,7 @@ const createUserAndSendMail = async (req, res) => {
     if (mailStatus) {
       res.status(200).send(addUser);
     } else {
-      res.status(200).send({ error: "failed to send mail but created user" });
+      res.status(400).send({ error: "failed to send mail but created user" });
     }
   } catch (error) {
     res.status(501).send({ error: error.message });
@@ -168,6 +168,41 @@ const loginUser = async (req, res) => {
   }
 };
 
+const resendVerificationMail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (email) {
+      const findEmail = await userSchema.findOne({ email });
+
+      if (findEmail) {
+        if (!findEmail.isVerified) {
+          const mailStatus = await sendMail(
+            email,
+            "resend verification",
+            findEmail.verificationId
+          );
+          if (mailStatus) {
+            res.status(200).send({ message: "Mail sent" });
+          } else {
+            res
+              .status(400)
+              .send({ error: "failed to send mail Check mail address" });
+          }
+        } else {
+          res.status(400).send({ error: "Already Verified" });
+        }
+      } else {
+        res.status(404).send({ error: "Couldn't find your mail address" });
+      }
+    } else {
+      res.status(400).send({ error: "Please Enter Valid Email address" });
+    }
+  } catch (error) {
+    res.status(501).send({ error: error.message });
+  }
+};
+
 module.exports = {
   inputValidation,
   checkUserAndEmail,
@@ -175,4 +210,5 @@ module.exports = {
   createUserAndSendMail,
   VerifyMail,
   loginUser,
+  resendVerificationMail,
 };
