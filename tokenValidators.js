@@ -8,7 +8,7 @@ const tokenValidator = (request, response, next) => {
   }
   if (jwtToken === undefined) {
     response.status(401);
-    response.send("Invalid JWT Token");
+    response.send({ errMsg: "Invalid JWT Token" });
   } else {
     jwt.verify(
       jwtToken,

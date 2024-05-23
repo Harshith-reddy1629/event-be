@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const sendMail = require("../mailer");
+const { v4 } = require("uuid");
 
 const inputValidation = (request, response, next) => {
   try {
@@ -97,7 +98,7 @@ const createUserAndSendMail = async (req, res) => {
       email,
       "Welcome!",
       `Hi ${addUser.name}
-      Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${addUser.verificationId}`
+Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${addUser.verificationId}`
     );
     console.log(mailStatus);
     if (mailStatus) {
@@ -118,6 +119,7 @@ const VerifyMail = async (req, res) => {
       { verificationId: id, isVerified: false },
       {
         isVerified: true,
+        verificationId: v4(),
       },
       {
         new: true,
@@ -147,10 +149,10 @@ const loginUser = async (req, res) => {
       );
 
       if (isValidPassword) {
-        const { username, name, isVerified } = findUserWithMail;
+        const { username, name, isVerified, _id } = findUserWithMail;
 
         if (isVerified) {
-          const payload = { email, username, name };
+          const payload = { email, username, name, _id };
 
           const generateToken = jwt.sign(payload, process.env.MY_SECRET_TOKEN);
 
@@ -182,7 +184,7 @@ const resendVerificationMail = async (req, res) => {
             email,
             "Resend verification",
             `Hi ${findEmail.name}, 
-             Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${findEmail.verificationId}`
+Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${findEmail.verificationId}`
           );
           if (mailStatus) {
             res.status(200).send({ message: "Mail sent" });
