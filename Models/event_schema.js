@@ -3,6 +3,12 @@ const mongoose = require("mongoose");
 const eventSchema = mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
+  image: {
+    type: "string",
+    required: "true",
+    default:
+      "https://res.cloudinary.com/reddyimgs/image/upload/v1717329433/reddys/thumbnail_gpkips.jpg",
+  },
   date: { type: Date, required: true },
   time: { type: String, required: true },
   location: {
