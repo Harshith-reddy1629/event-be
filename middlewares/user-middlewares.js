@@ -98,7 +98,7 @@ const createUserAndSendMail = async (req, res) => {
       email,
       "Welcome!",
       `Hi ${addUser.name}
-Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${addUser.verificationId}`
+Please Verify Your Email to Use Event Services, Click here https://architha-project.vercel.app/verification/${addUser.verificationId}`
     );
     if (mailStatus) {
       res.status(200).send(addUser);
@@ -183,7 +183,7 @@ const resendVerificationMail = async (req, res) => {
             email,
             "Resend verification",
             `Hi ${findEmail.name}, 
-Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${findEmail.verificationId}`
+Please Verify Your Email to Use Event Services, Click here https://architha-project.vercel.app/verification/${findEmail.verificationId}`
           );
           if (mailStatus) {
             res.status(200).send({ message: "Mail sent" });
