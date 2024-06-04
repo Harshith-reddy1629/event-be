@@ -100,7 +100,6 @@ const createUserAndSendMail = async (req, res) => {
       `Hi ${addUser.name}
 Please Verify Your Email to Use Event Services, Click here https://event-ashy-omega.vercel.app/verification/${addUser.verificationId}`
     );
-    console.log(mailStatus);
     if (mailStatus) {
       res.status(200).send(addUser);
     } else {

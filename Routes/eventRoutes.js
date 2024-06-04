@@ -173,7 +173,6 @@ const creaetEvent = async (req, res) => {
     } = req.body;
     const d = new Date(date);
     const R = new Date();
-    console.log(R.toLocaleString());
 
     const created = await Event.create({
       title,
@@ -315,7 +314,6 @@ Router.post("/order/verify/validate", tokenValidator, async (req, res) => {
       razorpay_signature,
       eventID,
     } = req.body;
-    console.log(req.body);
     const sha = crypto.createHmac("sha256", process.env.RZRPY_SECRET_KEY);
 
     sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
