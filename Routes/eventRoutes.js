@@ -25,7 +25,7 @@ Router.get("/", (req, res) => {
 
 // Router.use(express.urlencoded({ extended: false }));
 
-Router.get("/search-by-cords", async (req, res) => {
+Router.get("/search-by-cords", tokenValidator, async (req, res) => {
   try {
     const { lat, long } = req.query;
 
@@ -62,7 +62,7 @@ module.exports = Router;
 //   }
 // });
 
-Router.get("/eventname/:name", async (req, res) => {
+Router.get("/eventname/:name", tokenValidator, async (req, res) => {
   try {
     const { name } = req.params;
 
